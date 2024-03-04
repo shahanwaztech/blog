@@ -1,72 +1,75 @@
+'use client'
 import React from "react"
+import {useRouter} from "next/navigation";
 
-interface Tags{
-    name:string,
-}
-interface BlogCardInterface{
-    isRowWise:boolean,
-    title:string,
-    paragarph:string,
-    tags:Tags[]
-    CreatedDate:any,
-    id:number,
-    imgSrc:any,
+interface Tags {
+    name: string,
 }
 
-const BlogCard:React.FC<any> = () => {
-    const isRowWise = false;
+interface BlogCardInterface {
+    isRowWise: boolean,
+    title: string,
+    paragarph: string,
+    tags: Tags[]
+    CreatedDate: any,
+    id: number,
+    imgSrc: any,
+    slug: string,
+}
+
+const BlogCard: React.FC<BlogCardInterface> = (props) => {
+    const router = useRouter();
+
+    const handlePostClick = (slug: string) => {
+        router.push(`/${slug}`);
+    };
     return (
         <>
-            {isRowWise ? (
-                <div className="cursor-pointer w-[100%] flex flex-row justify-between items-center gap-4 overflow-hidden hover:border-[1px]  transition duration-500
-                                hover:scale-105 hover:rounded-lg transform ease-linear hover:shadow-md p-4  ">
-                    <div>
-                        <img src="/images/blogCardImage1.jpg" alt={"BlogCardImage"}
-                             className="w-[100%] h-[240px] rounded-md bg-cover object-cover object-center"/>
+            {props.isRowWise ? (
+                <div onClick={() => handlePostClick(props.slug)} className="cursor-pointer w-[100%] flex flex-row justify-between items-center gap-4 overflow-hidden hover:border-[1px] hover:rounded transform ease-linear hover:shadow p-4  ">
+                    <div className='w-[55%]'>
+                        <img src={props.imgSrc} alt={"BlogCardImage"}
+                             className="w-[100%] h-[240px] rounded bg-cover object-cover object-center"/>
                     </div>
-                    <div className="flex flex-col justify-between items-start h-[100%] py-2">
-                        <div className="flex flex-col gap-[12px]">
-                            <p className="text-[#6941C6] text-[14px] font-semibold">Sunday, 4 Mar 2024</p>
-                            <div className="flex justify-between items-start">
-                                <h1 className="text-[#1A1A1A] dark:text-[#fff] font-semibold text-[24px] leading-[32px]">UX
-                                    review
-                                    presentations</h1>
+                    <div className="flex flex-col justify-between w-[45%] items-start h-[100%] py-2">
+                        <div className="flex flex-col w-[100%] gap-[10px]">
+                            <p className="text-[#6941C6] text-[14px] font-semibold">{props.CreatedDate}</p>
+                            <div className="flex w-[100%] justify-between items-start">
+                                <h1 className="text-[#1A1A1A] capitalize dark:text-[#fff] font-semibold text-[24px] leading-[32px]">{props.title}</h1>
                                 <img src={"/images/icon.svg"} alt={"icon"} className="w-[24px] h-[28px] dark:hidden"/>
                                 <img src={"/images/iconwhite.svg"} alt={"icon"}
                                      className="w-[24px] h-[28px] hidden dark:flex"/>
                             </div>
-                            <p className="text-[#667085]  dark:text-[#C0C5D0] font-normal text-[16px] leading-[24px]">How
-                                do
-                                you i want to create create compelling presentations that wow your colleagues and
-                                impress your managers?</p>
+                            <p className="text-[#667085] capitalize  dark:text-[#C0C5D0] font-normal text-[16px] leading-[24px]">{props.paragarph}</p>
                         </div>
-                        <div className="flex flex-row gap-4 justify-start items-center">
-                            <div
-                                className="bg-[#EEF4FF] text-[#3538CD] px-[10px] text-[14px] font-medium py-[2px] rounded-full">Management
-                            </div>
+                        <div className="flex flex-row gap-2 justify-start items-center">
+                            {props.tags.map((tag: Tags, index: number) => (
+                                <div
+                                    key={index}
+                                    className="bg-[#EEF4FF] capitalize text-[#3538CD] px-[10px] text-[14px] font-medium py-[4px] rounded-full">{tag.name}
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
             ) : (
-                <div className="cursor-pointer overflow-hidden hover:border-[1px]  transition duration-500
-                                hover:scale-105 hover:rounded-lg transform ease-linear hover:shadow-md p-4  ">
-                    <img src="/images/blogCardImage1.jpg" alt={"BlogCardImage"}
-                         className="w-[100%] h-[240px] rounded-md bg-cover object-cover object-center"/>
-                    <p className="text-[#6941C6] mt-[20px] text-[14px] font-semibold">Sunday, 4 Mar 2024</p>
+                <div onClick={() => handlePostClick(props.slug)} className="cursor-pointer overflow-hidden hover:border-[1px]  hover:rounded  hover:shadow p-4  ">
+                    <img src={props.imgSrc} alt={"BlogCardImage"}
+                         className="w-[100%] h-[240px] rounded bg-cover object-cover object-center"/>
+                    <p className="text-[#6941C6] mt-[20px] text-[14px] font-semibold">{props.CreatedDate}</p>
                     <div className="flex justify-between items-start mt-[12px]">
-                        <h1 className="text-[#1A1A1A] dark:text-[#fff] font-semibold text-[24px] leading-[32px]">UX
-                            review
-                            presentations</h1>
+                        <h1 className="text-[#1A1A1A] dark:text-[#fff] font-semibold text-[24px] leading-[32px]">{props.title}</h1>
                         <img src={"/images/icon.svg"} alt={"icon"} className="w-[24px] h-[28px] dark:hidden"/>
                         <img src={"/images/iconwhite.svg"} alt={"icon"} className="w-[24px] h-[28px] hidden dark:flex"/>
                     </div>
-                    <p className="text-[#667085] mt-[12px] dark:text-[#C0C5D0] font-normal text-[16px] leading-[24px]">How
-                        do
-                        you create compelling presentations that wow your colleagues and impress your managers?</p>
-                    <div className="flex flex-row gap-4 justify-start items-center mt-[20px]">
-                        <div
-                            className="bg-[#EEF4FF] text-[#3538CD] px-[10px] text-[14px] font-medium py-[2px] rounded-full">Management
-                        </div>
+                    <p className="text-[#667085] mt-[12px] dark:text-[#C0C5D0] font-normal text-[16px] leading-[24px]">{props.paragarph}</p>
+                    <div className="flex flex-row gap-2 justify-start items-center mt-[20px]">
+                        {props.tags.map((tag: Tags, index: number) => (
+                            <div
+                                key={index}
+                                className="bg-[#EEF4FF] text-[#3538CD] px-[10px] text-[14px] font-medium py-[4px] rounded-full">{tag.name}
+                            </div>
+                        ))}
                     </div>
                 </div>
             )}

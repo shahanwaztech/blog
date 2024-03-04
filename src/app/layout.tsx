@@ -2,6 +2,7 @@ import type {Metadata} from "next";
 import {Inter} from "next/font/google";
 import "./globals.css";
 import {Providers} from "@/utils/provider";
+import React from 'react';
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -10,9 +11,7 @@ export const metadata: Metadata = {
     description: "Blogging app",
 };
 
-export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
+export default function RootLayout({children,}: Readonly<{
     children: React.ReactNode;
 }>) {
     return (

@@ -1,7 +1,7 @@
 import BlogCard from "@/components/BlogCard";
-import ThemeSwitch from "@/components/ThemeSwitch";
 import BlogCardLoading from "@/components/BlogCardLoading";
 import React, {Suspense} from "react";
+import NavBar from "@/components/NavBar";
 
 const BlogObject = [
     {
@@ -24,8 +24,8 @@ const BlogObject = [
 
 export default function Home() {
     return (
-        <div className="container px-[30px] mx-auto mt-[20px]">
-            <ThemeSwitch/>
+        <div className="container max-w-[1440px] px-[30px] mx-auto">
+            <NavBar />
             <div className="w-[100%] h-[100%] grid grid-cols-2 gap-8">
                 <Suspense fallback={<BlogCardLoading isRowWise={false}/>}>
                     <BlogCard

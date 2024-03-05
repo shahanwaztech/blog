@@ -53,7 +53,7 @@ const BlogCard: React.FC<BlogCardInterface> = (props) => {
                     </div>
                 </div>
             ) : (
-                <div onClick={() => handlePostClick(props.slug)} className="cursor-pointer overflow-hidden hover:border-[1px]  hover:rounded  hover:shadow p-4  ">
+                <div onClick={() => handlePostClick(props.slug)} className="capitalize cursor-pointer overflow-hidden hover:border-[1px]  hover:rounded  hover:shadow p-4  ">
                     <img src={props.imgSrc} alt={"BlogCardImage"}
                          className="w-[100%] h-[240px] rounded bg-cover object-cover object-center"/>
                     <p className="text-[#6941C6] mt-[20px] text-[14px] font-semibold">{props.CreatedDate}</p>
